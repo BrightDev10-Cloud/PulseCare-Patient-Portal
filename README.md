@@ -1,4 +1,4 @@
-# 🏥 MediCare Patient Portal
+# 🏥 PulseCare Patient Portal
 
 A modern, stunning clinic patient dashboard built with vanilla HTML, CSS, and JavaScript. This portal provides patients with a comprehensive view of their health information, appointments, prescriptions, and medical history.
 
