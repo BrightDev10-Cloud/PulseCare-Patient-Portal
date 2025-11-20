@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MediCare Patient Portal - Manage your appointments, prescriptions, and medical history in one secure place">
+    <title>PulseCare Patient Portal - Your Health Dashboard</title>
+    <link rel="icon" type="image/png" href="assets/Pulsecare_Favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ============= SIDEBAR ============= -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <img src="assets/Pulsecare_Logo.png" alt="logo" height="40px">
+                    </div>
+                    <span class="logo-text">PulseCare</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Main</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" data-page="dashboard">
+                                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="appointments">
+                                <span class="nav-icon"><i class="fas fa-calendar-check"></i></span>
+                                <span class="nav-text">Appointments</span>
+                                <span class="nav-badge">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="prescriptions">
+                                <span class="nav-icon"><i class="fas fa-pills"></i></span>
+                                <span class="nav-text">Prescriptions</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="history">
+                                <span class="nav-icon"><i class="fas fa-file-medical"></i></span>
+                                <span class="nav-text">Medical History</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Health</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="lab-results">
+                                <span class="nav-icon"><i class="fas fa-vial"></i></span>
+                                <span class="nav-text">Lab Results</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="medical-records">
+                                <span class="nav-icon"><i class="fas fa-notes-medical"></i></span>
+                                <span class="nav-text">Medical Records</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="my-doctors">
+                                <span class="nav-icon"><i class="fas fa-user-md"></i></span>
+                                <span class="nav-text">My Doctors</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Account</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="settings">
+                                <span class="nav-icon"><i class="fas fa-cog"></i></span>
+                                <span class="nav-text">Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-page="help-support">
+                                <span class="nav-icon"><i class="fas fa-question-circle"></i></span>
+                                <span class="nav-text">Help & Support</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name">John Doe</div>
+                        <div class="user-role">Patient ID: #12345</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============= MAIN CONTENT ============= -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                        <p class="page-subtitle" id="pageSubtitle">Welcome back, John! Here's your health overview.</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- ============= DASHBOARD PAGE ============= -->
+                <div class="page-content" id="dashboardPage">
+                    <!-- Stats Cards -->
+                    <div class="dashboard-grid">
+                        <div class="stat-card animate-slide-in">
+                            <div class="stat-header">
+                                <span class="stat-title">Upcoming Appointments</span>
+                                <div class="stat-icon primary">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-footer">
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 2
+                                </span>
+                                <span class="stat-period">from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card animate-slide-in" style="animation-delay: 0.1s">
+                            <div class="stat-header">
+                                <span class="stat-title">Active Prescriptions</span>
+                                <div class="stat-icon success">
+                                    <i class="fas fa-prescription-bottle"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value">5</div>
+                            <div class="stat-footer">
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 1
+                                </span>
+                                <span class="stat-period">new this week</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card animate-slide-in" style="animation-delay: 0.2s">
+                            <div class="stat-header">
+                                <span class="stat-title">Pending Lab Results</span>
+                                <div class="stat-icon warning">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value">2</div>
+                            <div class="stat-footer">
+                                <span class="stat-period">Expected this week</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card animate-slide-in" style="animation-delay: 0.3s">
+                            <div class="stat-header">
+                                <span class="stat-title">Health Score</span>
+                                <div class="stat-icon info">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value">92%</div>
+                            <div class="stat-footer">
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 5%
+                                </span>
+                                <span class="stat-period">improvement</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Metrics Chart -->
+                    <div class="card animate-fade-in">
+                        <div class="card-header">
+                            <h2 class="card-title">Health Metrics</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="healthMetricsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Appointments -->
+                    <div class="card animate-fade-in">
+                        <div class="card-header">
+                            <h2 class="card-title">Upcoming Appointments</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-sm" id="bookAppointmentBtn">
+                                    <i class="fas fa-plus"></i> Book Appointment
+                                </button>
+                            </div>
+                        </div>
+                        <div class="appointments-list" id="dashboardAppointments">
+                            <!-- Appointments will be rendered here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= APPOINTMENTS PAGE ============= -->
+                <div class="page-content hidden" id="appointmentsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">All Appointments</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                                <button class="btn btn-primary btn-sm" id="bookAppointmentBtn2">
+                                    <i class="fas fa-plus"></i> Book Appointment
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Appointments Table -->
+                        <div class="table-container">
+                            <table id="appointmentsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Doctor</th>
+                                        <th>Department</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointmentsTableBody">
+                                    <!-- Table rows will be rendered by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= PRESCRIPTIONS PAGE ============= -->
+                <div class="page-content hidden" id="prescriptionsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">My Prescriptions</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-download"></i> Download All
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="prescriptions-grid" id="prescriptionsGrid">
+                            <!-- Prescription cards will be rendered here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= MEDICAL HISTORY PAGE ============= -->
+                <div class="page-content hidden" id="historyPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Medical History Timeline</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-filter"></i> Filter by Type
+                                </button>
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-download"></i> Export PDF
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="medical-history">
+                            <div class="timeline" id="medicalTimeline">
+                                <!-- Timeline items will be rendered here by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= LAB RESULTS PAGE ============= -->
+                <div class="page-content hidden" id="labResultsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Lab Results</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-download"></i> Download All
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table id="labResultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Test Name</th>
+                                        <th>Date</th>
+                                        <th>Result</th>
+                                        <th>Reference Range</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="labResultsTableBody">
+                                    <!-- Lab results will be rendered by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= MEDICAL RECORDS PAGE ============= -->
+                <div class="page-content hidden" id="medicalRecordsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Medical Records</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-upload"></i> Upload Document
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="medicalRecordsList">
+                            <!-- Medical records will be rendered by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= MY DOCTORS PAGE ============= -->
+                <div class="page-content hidden" id="myDoctorsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">My Doctors</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus"></i> Add Doctor
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="prescriptions-grid" id="doctorsGrid">
+                            <!-- Doctor cards will be rendered by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= SETTINGS PAGE ============= -->
+                <div class="page-content hidden" id="settingsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Account Settings</h2>
+                        </div>
+                        
+                        <div style="padding: var(--spacing-md);">
+                            <h3 style="margin-bottom: var(--spacing-lg);">Profile Information</h3>
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-input" value="1985-06-15">
+                            </div>
+                            <button class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Notification Preferences</h2>
+                        </div>
+                        
+                        <div style="padding: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-md);">
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); cursor: pointer;">
+                                <input type="checkbox" checked>
+                                <span>Email notifications for appointments</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); cursor: pointer;">
+                                <input type="checkbox" checked>
+                                <span>SMS reminders for medications</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--spacing-md); cursor: pointer;">
+                                <input type="checkbox">
+                                <span>Newsletter and health tips</span>
+                            </label>
+                            <button class="btn btn-primary" style="width: fit-content;">Update Preferences</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============= HELP & SUPPORT PAGE ============= -->
+                <div class="page-content hidden" id="helpSupportPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Frequently Asked Questions</h2>
+                        </div>
+                        
+                        <div style="padding: var(--spacing-lg);">
+                            <div style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-lg); border-bottom: 1px solid var(--border-color);">
+                                <h4 style="margin-bottom: var(--spacing-sm); color: var(--text-primary);">How do I book an appointment?</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">Click on the "Book Appointment" button on the Dashboard or Appointments page, fill out the form with your preferred date, time, and doctor, then submit.</p>
+                            </div>
+                            
+                            <div style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-lg); border-bottom: 1px solid var(--border-color);">
+                                <h4 style="margin-bottom: var(--spacing-sm); color: var(--text-primary);">How can I request a prescription refill?</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">Navigate to the Prescriptions page, find your medication, and click the "Request Refill" button. Your doctor will be notified and process the request.</p>
+                            </div>
+                            
+                            <div style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-lg); border-bottom: 1px solid var(--border-color);">
+                                <h4 style="margin-bottom: var(--spacing-sm); color: var(--text-primary);">Can I access my medical records?</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">Yes! Go to the Medical Records page where you can view, download, and manage all your medical documents securely.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 style="margin-bottom: var(--spacing-sm); color: var(--text-primary);">Who should I contact for technical support?</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">For technical assistance, please email support@medicare.com or call our helpline at +1 (800) 123-4567.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Contact Support</h2>
+                        </div>
+                        
+                        <div style="padding: var(--spacing-lg); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--text-primary);">
+                                    <i class="fas fa-phone" style="margin-right: var(--spacing-sm); color: var(--primary-color);"></i>
+                                    Phone
+                                </div>
+                                <p style="color: var(--text-secondary);">+1 (800) 123-4567</p>
+                                <small style="color: var(--text-tertiary);">Mon-Fri, 8AM-8PM</small>
+                            </div>
+                            
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--text-primary);">
+                                    <i class="fas fa-envelope" style="margin-right: var(--spacing-sm); color: var(--primary-color);"></i>
+                                    Email
+                                </div>
+                                <p style="color: var(--text-secondary);">support@medicare.com</p>
+                                <small style="color: var(--text-tertiary);">24/7 Support</small>
+                            </div>
+                            
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--text-primary);">
+                                    <i class="fas fa-map-marker-alt" style="margin-right: var(--spacing-sm); color: var(--primary-color);"></i>
+                                    Location
+                                </div>
+                                <p style="color: var(--text-secondary);">123 Healthcare Ave</p>
+                                <small style="color: var(--text-tertiary);">Medical District, Abuja 9000ç1</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ============= BOOK APPOINTMENT MODAL ============= -->
+    <div class="modal-overlay" id="appointmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Book New Appointment</h2>
+                <button class="modal-close" id="closeAppointmentModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="appointmentForm">
+                    <div class="form-group">
+                        <label for="appointmentDepartment" class="form-label">Department</label>
+                        <select id="appointmentDepartment" class="form-select" required>
+                            <option value="">Select Department</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="dermatology">Dermatology</option>
+                            <option value="neurology">Neurology</option>
+                            <option value="orthopedics">Orthopedics</option>
+                            <option value="pediatrics">Pediatrics</option>
+                            <option value="general">General Medicine</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentDoctor" class="form-label">Doctor</label>
+                        <select id="appointmentDoctor" class="form-select" required>
+                            <option value="">Select Doctor</option>
+                            <option value="dr-smith">Dr. Sarah Smith</option>
+                            <option value="dr-johnson">Dr. Michael Johnson</option>
+                            <option value="dr-williams">Dr. Emily Williams</option>
+                            <option value="dr-brown">Dr. David Brown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentDate" class="form-label">Preferred Date</label>
+                        <input type="date" id="appointmentDate" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentTime" class="form-label">Preferred Time</label>
+                        <input type="time" id="appointmentTime" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentType" class="form-label">Appointment Type</label>
+                        <select id="appointmentType" class="form-select" required>
+                            <option value="">Select Type</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="follow-up">Follow-up</option>
+                            <option value="checkup">Regular Check-up</option>
+                            <option value="emergency">Emergency</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appointmentReason" class="form-label">Reason for Visit</label>
+                        <textarea id="appointmentReason" class="form-textarea" placeholder="Please describe your symptoms or reason for visit..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAppointment">Cancel</button>
+                <button class="btn btn-primary" id="submitAppointment">
+                    <i class="fas fa-check"></i> Book Appointment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="index.js"></script>
+</body>
+</html>
